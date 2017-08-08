@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/dailog"
+    android:layout_gravity="center"
+    android:layout_centerInParent="true"
+    android:layout_marginLeft="@dimen/dailog_marginleft"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_new_inventory"
+            android:layout_gravity="center_vertical"
+            android:textAlignment="center"
+            style="@style/EditorFieldStyle"
+            android:hint="@string/new_inventory"
+            android:inputType="number" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="+"
+            android:id="@+id/dailog_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="-"
+            android:id="@+id/dailog_dec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
