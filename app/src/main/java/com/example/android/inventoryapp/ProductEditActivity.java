@@ -21,6 +21,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,8 +74,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     };
 
     private int PIC_ALUM = 1;
-    private String SHARE_INVENTORY_SET = getString(R.string.inventoryset);
-    private String SHARE_MODIFY_STEP = getString(R.string.modify_step);
+    private String SHARE_INVENTORY_SET;
+    private String SHARE_MODIFY_STEP;
     private int mInventoryModifyStep = 0;
     private SharedPreferences inventoryPreferneces;
 
@@ -82,6 +83,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_edit);
+
+        SHARE_INVENTORY_SET = getString(R.string.inventoryset);
+        SHARE_MODIFY_STEP = getString(R.string.modify_step);
 
         initData();
     }
@@ -162,6 +166,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         final EditText setNum = new EditText(this);
         inventoryPreferneces = getSharedPreferences(SHARE_INVENTORY_SET,MODE_PRIVATE);
         setNum.setText(inventoryPreferneces.getString(SHARE_MODIFY_STEP,"1"));
+        setNum.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         builder.setTitle(R.string.set_modify_number_title).setView(setNum).setNegativeButton(R.string.confirm, new DialogInterface.OnClickListener() {
             @Override
@@ -295,10 +300,10 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductContract.ProductEntry.COLUMNS_PRODUCT_COUNT,inventory);
-        contentValues.put(ProductContract.ProductEntry.COLUMNS_PRODUCT_SALES,sales);
+        contentValues.put(ProductContract.ProductEntry.COLUMNS_PRODUCT_COUNT,(TextUtils.isEmpty(inventory))?0:Integer.valueOf(inventory));
+        contentValues.put(ProductContract.ProductEntry.COLUMNS_PRODUCT_SALES,(TextUtils.isEmpty(sales))?0:Integer.valueOf(sales));
         contentValues.put(ProductContract.ProductEntry.COLUMNS_PRODUCT_NAME,name);
-        contentValues.put(ProductContract.ProductEntry.COLUMNS_PRODUCT_PRICE,price);
+        contentValues.put(ProductContract.ProductEntry.COLUMNS_PRODUCT_PRICE,(TextUtils.isEmpty(price))?0.0:Float.valueOf(price));
         contentValues.put(ProductContract.ProductEntry.COLUMS_PRODUCT_SUPPLIER_EMAIL,email);
         contentValues.put(ProductContract.ProductEntry.COLUMS_PRODUCT_SUPPLIER_TEL,tel);
         contentValues.put(ProductContract.ProductEntry.COLUMS_PRODUCT_PIC,mPicPath);
